@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+
+[[mods]]
+modId="linguacraft"
+version="1.0.0"
+displayName="LinguaCraft"
+authors="You"
+description='''Say the item's name in Spanish or Japanese or it gets deleted.
+Random phrase challenges help you actually learn the language.'''
+
+[[dependencies.linguacraft]]
+modId="neoforge"
+type="required"
+versionRange="[21.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.linguacraft]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="BOTH"

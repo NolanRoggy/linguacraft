@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version '2.0.78'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenCentral()
+}
+
+neoForge {
+    version = project.neo_version
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    // Vosk = offline speech recognition. Bundled inside the mod jar (Jar-in-Jar).
+    // JNA is already shipped by Minecraft, so we don't bundle it a second time.
+    jarJar(implementation("com.alphacephei:vosk:${vosk_version}")) {
+        transitive = false
+        version {
+            strictly "[${vosk_version},0.4)"
+            prefer "${vosk_version}"
+        }
+    }
+    // Needed so the dev client (runClient) can load Vosk too.
+    additionalRuntimeClasspath "com.alphacephei:vosk:${vosk_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Japanese text lives in the source files
+}
