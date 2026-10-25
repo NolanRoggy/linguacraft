@@ -11,6 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -39,8 +40,8 @@ public final class ServerTriggers {
     }
 
     @SubscribeEvent
-    public static void onPickup(PlayerEvent.ItemPickupEvent e) {
-        if (e.getEntity() instanceof ServerPlayer p) ChallengeManager.onItemObtained(p, e.getStack());
+    public static void onPickup(ItemEntityPickupEvent.Post e) {
+        if (e.getPlayer() instanceof ServerPlayer p) ChallengeManager.onItemObtained(p, e.getOriginalStack());
     }
 
     // ---- phrases tied to actions ----
